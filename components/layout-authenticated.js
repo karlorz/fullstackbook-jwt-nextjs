@@ -11,15 +11,18 @@ export default function LayoutAuthenticated(props) {
   }, [])
 
   async function fetchProfile() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/test/profile`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/demo-controller`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + localStorage.getItem("token")
-      }
+      },
+      cache: 'no-store', // Add this line to disable caching
     })
     if (res.ok) {
-      const json = await res.json()
-      setProfile(json)
+      // const json = await res.json()
+      // setProfile(json)
+      const json = await res.text();
+      setProfile({ username: json });
     } else {
       router.push("/signin")
     }

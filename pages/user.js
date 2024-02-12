@@ -13,12 +13,14 @@ export default function User() {
 
 
   async function fetchContent() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/test/user`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/demo-controller`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + localStorage.getItem("token")
-      }
+      },
+      cache: 'no-store', // Add this line to disable caching
     })
+    console.log("load token: ", localStorage.getItem("token"))
     if (res.ok) {
       const text = await res.text()
       setContent(text)

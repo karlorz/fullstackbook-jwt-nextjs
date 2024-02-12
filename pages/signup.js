@@ -7,7 +7,8 @@ export default function SignUp() {
   const router = useRouter()
 
   const [state, setState] = useState({
-    username: "",
+    firstname: "",
+    lastname: "",
     email: "",
     password: ""
   })
@@ -19,7 +20,7 @@ export default function SignUp() {
   }
 
   async function handleSubmit() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/register`, {
       method: "POST",
       body: JSON.stringify(state),
       headers: {
@@ -37,7 +38,8 @@ export default function SignUp() {
       <div className={styles.container}>
         <h1 className={styles.title}>Sign Up</h1>
         <div className={styles.form}>
-          <input className={styles.input} type="text" name="username" placeholder="username" value={state.username} onChange={handleChange} autoComplete="off" />
+        <input className={styles.input} type="text" name="firstname" placeholder="firstname" value={state.firstname} onChange={handleChange} autoComplete="off" />
+          <input className={styles.input} type="text" name="lastname" placeholder="lastname" value={state.lastname} onChange={handleChange} autoComplete="off" />
           <input className={styles.input} type="text" name="email" placeholder="email" value={state.email} onChange={handleChange} autoComplete="off" />
           <input className={styles.input} type="password" name="password" placeholder="password" value={state.password} onChange={handleChange} />
           <button className={styles.btn} onClick={handleSubmit}>Submit</button>
